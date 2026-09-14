@@ -1,0 +1,15 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "github>lightwell-network/renovate-config:java-remediated#v1.0.0"
+  ],
+  "hostRules": [
+    {
+      "matchHost": "packages.redhat.com",
+      "hostType": "maven",
+      "username": "<lightwell-service-account>",
+      "password": "<lightwell-token>"
+    }
+  ]
+}

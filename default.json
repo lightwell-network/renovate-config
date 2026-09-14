@@ -1,0 +1,4 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Lightwell shareable Renovate presets. Do not extend this file; use a named preset such as java-remediated, java-upgrade, or java-manager."
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Lightwell Java upgrade: custom pom.xml manager that proposes any newer rhlw-suffixed Maven version, including upstream version jumps (e.g. 3.7.1.rhlw-00001 → 3.18.0.rhlw-00001).",
+  "maven": {
+    "enabled": false
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/(^|/)pom\\.xml$/"],
+      "matchStringsStrategy": "any",
+      "matchStrings": [
+        "<groupId>(?<groupId>[^<]+)</groupId>\\s*<artifactId>(?<artifactId>[^<]+)</artifactId>\\s*<version>(?<currentValue>[^<${}]+)</version>"
+      ],
+      "depNameTemplate": "{{{groupId}}}:{{{artifactId}}}",
+      "datasourceTemplate": "maven",
+      "registryUrlTemplate": "https://packages.redhat.com/lightwell/java/remediated",
+      "versioningTemplate": "maven"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Only propose rhlw-suffixed versions, not plain upstream",
+      "matchManagers": ["custom.regex"],
+      "matchDatasources": ["maven"],
+      "allowedVersions": "/[.-]rhlw-/"
+    },
+    {
+      "description": "Label and prioritize Lightwell Java security updates",
+      "matchManagers": ["custom.regex"],
+      "matchDatasources": ["maven"],
+      "labels": ["security", "lightwell"],
+      "additionalBranchPrefix": "lightwell/",
+      "prPriority": 10,
+      "commitMessagePrefix": "fix(security):"
+    }
+  ]
+}

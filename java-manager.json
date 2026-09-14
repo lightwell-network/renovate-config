@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Custom regex manager for Maven pom.xml Lightwell versions. Disable the built-in maven manager so pom.xml is not processed twice. Override registryUrl with packageRules.registryUrls in the consuming repo.",
+  "maven": {
+    "enabled": false
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/(^|/)pom\\.xml$/"],
+      "matchStringsStrategy": "any",
+      "matchStrings": [
+        "<groupId>(?<groupId>[^<]+)</groupId>\\s*<artifactId>(?<artifactId>[^<]+)</artifactId>\\s*<version>(?<currentValue>[^<${}]+)</version>"
+      ],
+      "depNameTemplate": "{{{groupId}}}:{{{artifactId}}}",
+      "datasourceTemplate": "maven",
+      "registryUrlTemplate": "https://packages.redhat.com/lightwell/java/remediated",
+      "versioningTemplate": "maven"
+    }
+  ]
+}

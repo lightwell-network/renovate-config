@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "github>lightwell-network/renovate-config:java-remediated#v1.0.0"
+  ],
+  "hostRules": [
+    {
+      "matchHost": "artifactory.example.com",
+      "hostType": "maven",
+      "username": "<artifactory-username>",
+      "password": "<artifactory-token>"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["custom.regex"],
+      "matchDatasources": ["maven"],
+      "registryUrls": ["https://artifactory.example.com/artifactory/lightwell-java-all"]
+    }
+  ]
+}

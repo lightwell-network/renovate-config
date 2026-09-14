@@ -1,0 +1,32 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Lightwell Java remediated: custom pom.xml manager that treats the upstream version as compatibility and only bumps the rhlw rebuild (e.g. 3.7.1.rhlw-00001 → 3.7.1.rhlw-00002, not 3.18.0).",
+  "maven": {
+    "enabled": false
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/(^|/)pom\\.xml$/"],
+      "matchStringsStrategy": "any",
+      "matchStrings": [
+        "<groupId>(?<groupId>[^<]+)</groupId>\\s*<artifactId>(?<artifactId>[^<]+)</artifactId>\\s*<version>(?<currentValue>[^<${}]+)</version>"
+      ],
+      "depNameTemplate": "{{{groupId}}}:{{{artifactId}}}",
+      "datasourceTemplate": "maven",
+      "registryUrlTemplate": "https://packages.redhat.com/lightwell/java/remediated",
+      "versioningTemplate": "regex:^(?<compatibility>.*?)([.-]rhlw-(?<major>\\d+)(\\.n(?<minor>\\d+))?)?$"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Label and prioritize Lightwell Java security updates",
+      "matchManagers": ["custom.regex"],
+      "matchDatasources": ["maven"],
+      "labels": ["security", "lightwell"],
+      "additionalBranchPrefix": "lightwell/",
+      "prPriority": 10,
+      "commitMessagePrefix": "fix(security):"
+    }
+  ]
+}
