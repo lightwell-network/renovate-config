@@ -1,0 +1,10 @@
+{
+  "name": "renovate-config",
+  "private": true,
+  "scripts": {
+    "test": "node tests/run.mjs"
+  },
+  "devDependencies": {
+    "renovate": "^44.0.0"
+  }
+}

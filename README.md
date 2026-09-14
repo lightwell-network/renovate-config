@@ -69,3 +69,14 @@ The presets look up Maven artifacts on `https://packages.redhat.com/lightwell/ja
 ## Versioning
 
 Release git tags (`v1.0.0`, `v1.1.0`, `v2.0.0`) for this repository. Applications pin with `#v1.0.0`. Breaking changes to the regex, versioning, or disabled managers go to a new major tag.
+
+## CI tests
+
+Run `npm test`, which starts a local Maven repo from the version lists in [`tests/cases/`](tests/cases/) and runs Renovate with `--platform=local`. Each case states the versions that exist and the version the preset must propose.
+
+```bash
+npm install
+npm test
+```
+
+Add a JSON file under `tests/cases/` to cover another catalog or preset. `expect` is the `newValue` Renovate should choose, or `null` for no update.

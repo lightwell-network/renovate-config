@@ -1,0 +1,67 @@
+{
+  "name": "java-remediated",
+  "preset": "java-remediated",
+  "dependencies": [
+    {
+      "description": "Bump rhlw rebuild, not upstream",
+      "current": "3.7.1.rhlw-00001",
+      "available": [
+        "3.7.1",
+        "3.7.1.rhlw-00001",
+        "3.7.1.rhlw-00002",
+        "3.18.0.rhlw-00001"
+      ],
+      "expect": "3.7.1.rhlw-00002"
+    },
+    {
+      "description": "Add rhlw suffix on same upstream",
+      "current": "12.0.32",
+      "available": [
+        "12.0.32",
+        "12.0.32.rhlw-00001",
+        "12.1.0.rhlw-00001"
+      ],
+      "expect": "12.0.32.rhlw-00001"
+    },
+    {
+      "description": "Bump to later rebuild, skip plain upstream",
+      "current": "12.0.32",
+      "available": [
+        "12.0.32",
+        "12.0.32.rhlw-00001",
+        "12.0.32.rhlw-00002",
+        "12.1.13"
+      ],
+      "expect": "12.0.32.rhlw-00002"
+    },
+    {
+      "description": "No update when already on latest rebuild",
+      "current": "3.7.1.rhlw-00002",
+      "available": [
+        "3.7.1.rhlw-00001",
+        "3.7.1.rhlw-00002",
+        "3.18.0.rhlw-00001"
+      ],
+      "expect": null
+    },
+    {
+      "description": "No update when no rhlw versions exist",
+      "current": "12.0.32",
+      "available": [
+        "12.0.32",
+        "12.1.0"
+      ],
+      "expect": null
+    },
+    {
+      "description": "Do not downgrade",
+      "current": "12.0.32",
+      "available": [
+        "12.0.31.rhlw-00001",
+        "12.0.32",
+        "12.1.1"
+      ],
+      "expect": null
+    }
+  ]
+}
