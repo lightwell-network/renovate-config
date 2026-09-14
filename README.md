@@ -1,5 +1,8 @@
 # Lightwell Renovate config
 
+> [!WARNING]
+> **Beta.** These presets are for testing only and are not yet officially supported.
+
 Shareable [Renovate](https://docs.renovatebot.com/) presets for Lightwell packages. Applications import a named preset with `extends`; they do not copy the custom manager into every repo.
 
 Pin a git tag so consuming repos do not float onto breaking preset changes.
