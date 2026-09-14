@@ -24,15 +24,6 @@
       "matchManagers": ["custom.regex"],
       "matchDatasources": ["maven"],
       "allowedVersions": "/[.-]rhlw-/"
-    },
-    {
-      "description": "Label and prioritize Lightwell Java security updates",
-      "matchManagers": ["custom.regex"],
-      "matchDatasources": ["maven"],
-      "labels": ["security", "lightwell"],
-      "additionalBranchPrefix": "lightwell/",
-      "prPriority": 10,
-      "commitMessagePrefix": "fix(security):"
     }
   ]
 }
