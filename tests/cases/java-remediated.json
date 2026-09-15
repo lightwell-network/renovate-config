@@ -3,44 +3,44 @@
   "preset": "java-remediated",
   "dependencies": [
     {
-      "description": "Bump rhlw rebuild, not upstream",
-      "current": "3.7.1.rhlw-00001",
+      "description": "Bump rhlw baseline, not upstream",
+      "current": "3.7.1-rhlw.00001",
       "available": [
         "3.7.1",
-        "3.7.1.rhlw-00001",
-        "3.7.1.rhlw-00002",
-        "3.18.0.rhlw-00001"
+        "3.7.1-rhlw.00001",
+        "3.7.1-rhlw.00002",
+        "3.18.0-rhlw.00001"
       ],
-      "expect": "3.7.1.rhlw-00002"
+      "expect": "3.7.1-rhlw.00002"
     },
     {
-      "description": "Add rhlw suffix on same upstream",
+      "description": "Add rhlw suffix on same upstream (validated → remediated)",
       "current": "12.0.32",
       "available": [
         "12.0.32",
-        "12.0.32.rhlw-00001",
-        "12.1.0.rhlw-00001"
+        "12.0.32-rhlw.00001",
+        "12.1.0-rhlw.00001"
       ],
-      "expect": "12.0.32.rhlw-00001"
+      "expect": "12.0.32-rhlw.00001"
     },
     {
-      "description": "Bump to later rebuild, skip plain upstream",
+      "description": "Bump to later baseline, skip plain upstream",
       "current": "12.0.32",
       "available": [
         "12.0.32",
-        "12.0.32.rhlw-00001",
-        "12.0.32.rhlw-00002",
+        "12.0.32-rhlw.00001",
+        "12.0.32-rhlw.00002",
         "12.1.13"
       ],
-      "expect": "12.0.32.rhlw-00002"
+      "expect": "12.0.32-rhlw.00002"
     },
     {
-      "description": "No update when already on latest rebuild",
-      "current": "3.7.1.rhlw-00002",
+      "description": "No update when already on latest baseline",
+      "current": "3.7.1-rhlw.00002",
       "available": [
-        "3.7.1.rhlw-00001",
-        "3.7.1.rhlw-00002",
-        "3.18.0.rhlw-00001"
+        "3.7.1-rhlw.00001",
+        "3.7.1-rhlw.00002",
+        "3.18.0-rhlw.00001"
       ],
       "expect": null
     },
@@ -57,9 +57,103 @@
       "description": "Do not downgrade",
       "current": "12.0.32",
       "available": [
-        "12.0.31.rhlw-00001",
+        "12.0.31-rhlw.00001",
         "12.0.32",
         "12.1.1"
+      ],
+      "expect": null
+    },
+    {
+      "description": "Novel on same baseline is newer than backport",
+      "current": "1.2.3-rhlw.00003",
+      "available": [
+        "1.2.3",
+        "1.2.3-rhlw.00003",
+        "1.2.3-rhlw.00003.n00001"
+      ],
+      "expect": "1.2.3-rhlw.00003.n00001"
+    },
+    {
+      "description": "Bump novel counter on same baseline",
+      "current": "1.2.3-rhlw.00003.n00001",
+      "available": [
+        "1.2.3-rhlw.00003",
+        "1.2.3-rhlw.00003.n00001",
+        "1.2.3-rhlw.00003.n00002"
+      ],
+      "expect": "1.2.3-rhlw.00003.n00002"
+    },
+    {
+      "description": "Next baseline supersedes old novels",
+      "current": "1.2.3-rhlw.00003.n00001",
+      "available": [
+        "1.2.3-rhlw.00003",
+        "1.2.3-rhlw.00003.n00001",
+        "1.2.3-rhlw.00004"
+      ],
+      "expect": "1.2.3-rhlw.00004"
+    },
+    {
+      "description": "Novel counters reset per baseline",
+      "current": "1.2.3-rhlw.00003.n00002",
+      "available": [
+        "1.2.3-rhlw.00003.n00002",
+        "1.2.3-rhlw.00004.n00001"
+      ],
+      "expect": "1.2.3-rhlw.00004.n00001"
+    },
+    {
+      "description": "Hotfix on baseline is newer than backport",
+      "current": "1.2.3-rhlw.00003",
+      "available": [
+        "1.2.3-rhlw.00003",
+        "1.2.3-rhlw.00003.hf00001"
+      ],
+      "expect": "1.2.3-rhlw.00003.hf00001"
+    },
+    {
+      "description": "Bump hotfix counter on same baseline",
+      "current": "1.2.3-rhlw.00003.hf00001",
+      "available": [
+        "1.2.3-rhlw.00003.hf00001",
+        "1.2.3-rhlw.00003.hf00002"
+      ],
+      "expect": "1.2.3-rhlw.00003.hf00002"
+    },
+    {
+      "description": "Novel is newer than hotfix on the same baseline",
+      "current": "1.2.3-rhlw.00003.hf00001",
+      "available": [
+        "1.2.3-rhlw.00003",
+        "1.2.3-rhlw.00003.hf00001",
+        "1.2.3-rhlw.00003.n00001"
+      ],
+      "expect": "1.2.3-rhlw.00003.n00001"
+    },
+    {
+      "description": "Hotfix on novel is newer than that novel",
+      "current": "1.2.3-rhlw.00003.n00001",
+      "available": [
+        "1.2.3-rhlw.00003.n00001",
+        "1.2.3-rhlw.00003.n00001.hf00001"
+      ],
+      "expect": "1.2.3-rhlw.00003.n00001.hf00001"
+    },
+    {
+      "description": "Next baseline supersedes hotfix on novel",
+      "current": "1.2.3-rhlw.00003.n00001.hf00001",
+      "available": [
+        "1.2.3-rhlw.00003.n00001.hf00001",
+        "1.2.3-rhlw.00004"
+      ],
+      "expect": "1.2.3-rhlw.00004"
+    },
+    {
+      "description": "Hotfix on backport is older than a novel on the same baseline",
+      "current": "1.2.3-rhlw.00003.n00001",
+      "available": [
+        "1.2.3-rhlw.00003.hf00001",
+        "1.2.3-rhlw.00003.n00001"
       ],
       "expect": null
     }

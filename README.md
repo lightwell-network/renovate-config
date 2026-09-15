@@ -11,8 +11,8 @@ Pin a git tag so consuming repos do not float onto breaking preset changes.
 
 | Preset | Behavior |
 |---|---|
-| [`java-remediated`](java-remediated.json) | Only bumps the Lightwell rebuild (`3.7.1.rhlw-00001` → `3.7.1.rhlw-00002`). |
-| [`java-upgrade`](java-upgrade.json) | Maven versioning, but keeps only `rhlw` artifacts. Upstream jumps are allowed (`3.7.1.rhlw-00001` → `3.18.0.rhlw-00001`). |
+| [`java-remediated`](java-remediated.json) | Only bumps the Lightwell rebuild (`3.7.1-rhlw.00001` → `3.7.1-rhlw.00002`). |
+| [`java-upgrade`](java-upgrade.json) | Maven versioning, but keeps only `rhlw` artifacts. Upstream jumps are allowed (`3.7.1-rhlw.00001` → `3.18.0-rhlw.00001`). |
 | [`java-manager`](java-manager.json) | Custom manager only. Use this when the app supplies its own `packageRules`. |
 
 ## Usage

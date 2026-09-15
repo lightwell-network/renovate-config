@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Lightwell Java upgrade: custom pom.xml manager that proposes any newer rhlw-suffixed Maven version, including upstream version jumps (e.g. 3.7.1.rhlw-00001 → 3.18.0.rhlw-00001).",
+  "description": "Lightwell Java upgrade: custom pom.xml manager that proposes any newer rhlw-suffixed Maven version, including upstream version jumps (e.g. 3.7.1-rhlw.00001 → 3.18.0-rhlw.00001).",
   "maven": {
     "enabled": false
   },
@@ -23,7 +23,7 @@
       "description": "Only propose rhlw-suffixed versions, not plain upstream",
       "matchManagers": ["custom.regex"],
       "matchDatasources": ["maven"],
-      "allowedVersions": "/[.-]rhlw-/"
+      "allowedVersions": "/-rhlw\\./"
     }
   ]
 }

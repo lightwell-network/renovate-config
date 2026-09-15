@@ -4,44 +4,44 @@
   "dependencies": [
     {
       "description": "Allow upstream jump to newer rhlw",
-      "current": "3.7.1.rhlw-00001",
+      "current": "3.7.1-rhlw.00001",
       "available": [
         "3.7.1",
-        "3.7.1.rhlw-00001",
-        "3.7.1.rhlw-00002",
-        "3.18.0.rhlw-00001"
+        "3.7.1-rhlw.00001",
+        "3.7.1-rhlw.00002",
+        "3.18.0-rhlw.00001"
       ],
-      "expect": "3.18.0.rhlw-00001"
+      "expect": "3.18.0-rhlw.00001"
     },
     {
       "description": "Upgrade to newest rhlw including upstream jump",
       "current": "12.0.32",
       "available": [
         "12.0.32",
-        "12.0.32.rhlw-00001",
-        "12.1.0.rhlw-00001"
+        "12.0.32-rhlw.00001",
+        "12.1.0-rhlw.00001"
       ],
-      "expect": "12.1.0.rhlw-00001"
+      "expect": "12.1.0-rhlw.00001"
     },
     {
       "description": "Upgrade from current rebuild to newer upstream rhlw",
-      "current": "3.7.1.rhlw-00002",
+      "current": "3.7.1-rhlw.00002",
       "available": [
-        "3.7.1.rhlw-00001",
-        "3.7.1.rhlw-00002",
-        "3.18.0.rhlw-00001"
+        "3.7.1-rhlw.00001",
+        "3.7.1-rhlw.00002",
+        "3.18.0-rhlw.00001"
       ],
-      "expect": "3.18.0.rhlw-00001"
+      "expect": "3.18.0-rhlw.00001"
     },
     {
       "description": "Upgrade to highest rebuild, but not newest upstream",
       "current": "3.7.1",
       "available": [
-        "3.7.1.rhlw-00001",
-        "3.18.0.rhlw-00001",
+        "3.7.1-rhlw.00001",
+        "3.18.0-rhlw.00001",
         "3.19.0"
       ],
-      "expect": "3.18.0.rhlw-00001"
+      "expect": "3.18.0-rhlw.00001"
     },
     {
       "description": "No update when no rhlw versions exist",
@@ -56,9 +56,71 @@
       "description": "Do not downgrade",
       "current": "12.0.32",
       "available": [
-        "12.0.31.rhlw-00001",
+        "12.0.31-rhlw.00001",
         "12.0.32",
         "12.1.1"
+      ],
+      "expect": null
+    },
+    {
+      "description": "Pick novel over baseline on the same upstream",
+      "current": "1.2.3",
+      "available": [
+        "1.2.3",
+        "1.2.3-rhlw.00003",
+        "1.2.3-rhlw.00003.hf00001",
+        "1.2.3-rhlw.00003.n00001"
+      ],
+      "expect": "1.2.3-rhlw.00003.n00001"
+    },
+    {
+      "description": "Pick next baseline over old novel and hotfix on novel",
+      "current": "1.2.3-rhlw.00003",
+      "available": [
+        "1.2.3-rhlw.00003",
+        "1.2.3-rhlw.00003.n00001",
+        "1.2.3-rhlw.00003.n00001.hf00001",
+        "1.2.3-rhlw.00004"
+      ],
+      "expect": "1.2.3-rhlw.00004"
+    },
+    {
+      "description": "Newer upstream rhlw beats older-upstream novel",
+      "current": "1.2.3-rhlw.00003.n00001",
+      "available": [
+        "1.2.3-rhlw.00003.n00001",
+        "1.2.3-rhlw.00003.n00001.hf00001",
+        "1.2.4-rhlw.00001"
+      ],
+      "expect": "1.2.4-rhlw.00001"
+    },
+    {
+      "description": "Hotfix on novel is selected when it is the latest rhlw",
+      "current": "1.2.3-rhlw.00003",
+      "available": [
+        "1.2.3",
+        "1.2.3-rhlw.00003",
+        "1.2.3-rhlw.00003.hf00001",
+        "1.2.3-rhlw.00003.n00001",
+        "1.2.3-rhlw.00003.n00001.hf00001"
+      ],
+      "expect": "1.2.3-rhlw.00003.n00001.hf00001"
+    },
+    {
+      "description": "Novel counters reset per baseline; later baseline wins",
+      "current": "1.2.3-rhlw.00003.n00002",
+      "available": [
+        "1.2.3-rhlw.00003.n00002",
+        "1.2.3-rhlw.00004.n00001"
+      ],
+      "expect": "1.2.3-rhlw.00004.n00001"
+    },
+    {
+      "description": "Do not jump to newer plain upstream when rhlw exists on current",
+      "current": "1.2.3-rhlw.00003",
+      "available": [
+        "1.2.3-rhlw.00003",
+        "1.2.4"
       ],
       "expect": null
     }

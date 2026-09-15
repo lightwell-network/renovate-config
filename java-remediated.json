@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "description": "Lightwell Java remediated: custom pom.xml manager that treats the upstream version as compatibility and only bumps the rhlw rebuild (e.g. 3.7.1.rhlw-00001 → 3.7.1.rhlw-00002, not 3.18.0).",
+  "description": "Lightwell Java remediated: custom pom.xml manager that treats the upstream version as compatibility and only bumps the rhlw rebuild (e.g. 3.7.1-rhlw.00001 → 3.7.1-rhlw.00002, not 3.18.0).",
   "respectLatest": false,
   "maven": {
     "enabled": false
@@ -16,7 +16,7 @@
       "depNameTemplate": "{{{groupId}}}:{{{artifactId}}}",
       "datasourceTemplate": "maven",
       "registryUrlTemplate": "https://packages.redhat.com/lightwell/java/remediated",
-      "versioningTemplate": "regex:^(?<compatibility>.*?)([.-]rhlw-(?<major>\\d+)(\\.n(?<minor>\\d+))?)?$"
+      "versioningTemplate": "regex:^(?<compatibility>.*?)(-rhlw\\.(?<major>\\d+)(\\.n(?<minor>\\d+))?(\\.hf(?<patch>\\d+))?)?$"
     }
   ],
   "packageRules": [
