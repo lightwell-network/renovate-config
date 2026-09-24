@@ -2,7 +2,8 @@
   "name": "renovate-config",
   "private": true,
   "scripts": {
-    "test": "node tests/run.mjs"
+    "test": "node tests/run.mjs",
+    "pin-transitives": "node scripts/pin-transitives.mjs"
   },
   "devDependencies": {
     "renovate": "^44.0.0"
