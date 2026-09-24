@@ -66,6 +66,52 @@ The presets look up Maven artifacts on `https://packages.redhat.com/lightwell/ja
 }
 ```
 
+## Pin transitives
+
+`scripts/pin-transitives.mjs` runs Maven, then Renovate in the current repo, using whatever `renovate.json` is already there. It lists rhlw updates (Direct and Transitive) and does not edit `pom.xml`. `--mvn` and `--renovate` each replace the whole command with one string.
+
+Pass `--write` to write a BOM for `dependencyManagement`. The default file is `lightwell-pins.xml` next to `pom.xml`; `--write` may take another path. A new file uses `com.lightwell:rhlw-pins:0.0.1`. If the file already exists, `--write` rewrites the `dependencyManagement` section, bumps the project version, and leaves the rest of the file unchanged.
+
+Maven must write a JSON dependency tree. Defaults:
+
+```bash
+mvn -B -Dstyle.color=never dependency:tree -DoutputType=json -DoutputFile=dependency-tree.json
+renovate --platform=local --onboarding=false --dry-run=lookup
+```
+
+If you pass `--mvn`, include the same JSON flags (`-DoutputType=json -DoutputFile=...`). The Maven tree, a pom listing every resolved dependency for Renovate, and the Renovate log are stored in a temp directory that is printed at the end and is not deleted. Renovate is run against that scan pom; it cannot see Maven transitives from the app `pom.xml` alone.
+
+The app must have `renovate.json` and `renovate` installed (or available in a parent `node_modules`).
+
+```bash
+cd /path/to/app
+node /path/to/renovate-config/scripts/pin-transitives.mjs
+node /path/to/renovate-config/scripts/pin-transitives.mjs --mvn "mvn -s settings.xml dependency:tree -DoutputType=json -DoutputFile=dependency-tree.json"
+node /path/to/renovate-config/scripts/pin-transitives.mjs --renovate "npx renovate --platform=local --onboarding=false --dry-run=lookup"
+node /path/to/renovate-config/scripts/pin-transitives.mjs --write
+node /path/to/renovate-config/scripts/pin-transitives.mjs --write path/to/lightwell-pins.xml
+```
+
+Install the BOM so Maven can resolve it, then import it from the app `pom.xml`. Overrides can sit above the import in `dependencyManagement` (first entry wins). When `--write` bumps the pin file version, update the import `<version>` to match.
+
+```bash
+mvn install:install-file -Dfile=lightwell-pins.xml -DpomFile=lightwell-pins.xml
+```
+
+```xml
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>com.lightwell</groupId>
+      <artifactId>rhlw-pins</artifactId>
+      <version>0.0.1</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+```
+
 ## Versioning
 
 Release git tags (`v1.0.0`, `v1.1.0`, `v2.0.0`) for this repository. Applications pin with `#v1.0.0`. Breaking changes to the regex, versioning, or disabled managers go to a new major tag.
